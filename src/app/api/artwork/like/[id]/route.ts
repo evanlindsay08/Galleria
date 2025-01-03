@@ -8,83 +8,41 @@ export async function POST(
   try {
     const { walletAddress } = await request.json()
 
-    // Find or create user
-    const user = await prisma.user.upsert({
-      where: { walletAddress },
-      create: {
-        id: walletAddress,
-        walletAddress,
-      },
-      update: {},
+    const user = await prisma.user.findUnique({
+      where: { walletAddress }
     })
 
-    // Check if user has already liked this artwork
+    if (!user) {
+      return NextResponse.json({ error: 'User not found' }, { status: 404 })
+    }
+
     const existingLike = await prisma.like.findUnique({
       where: {
         artworkId_userId: {
           artworkId: params.id,
-          userId: user.id,
-        },
-      },
+          userId: user.id
+        }
+      }
     })
 
     if (existingLike) {
-      // Unlike: Remove the like and decrement count
-      await prisma.$transaction([
-        prisma.like.delete({
-          where: {
-            id: existingLike.id,
-          },
-        }),
-        prisma.artwork.update({
-          where: { id: params.id },
-          data: {
-            likeCount: {
-              decrement: 1,
-            },
-          },
-        }),
-      ])
-
-      return NextResponse.json({ 
-        success: true, 
-        liked: false,
-        likeCount: (await prisma.artwork.findUnique({
-          where: { id: params.id },
-        }))?.likeCount || 0,
+      await prisma.like.delete({
+        where: { id: existingLike.id }
       })
-    } else {
-      // Like: Create new like and increment count
-      await prisma.$transaction([
-        prisma.like.create({
-          data: {
-            artworkId: params.id,
-            userId: user.id,
-          },
-        }),
-        prisma.artwork.update({
-          where: { id: params.id },
-          data: {
-            likeCount: {
-              increment: 1,
-            },
-          },
-        }),
-      ])
-
-      return NextResponse.json({ 
-        success: true, 
-        liked: true,
-        likeCount: (await prisma.artwork.findUnique({
-          where: { id: params.id },
-        }))?.likeCount || 0,
-      })
+      return NextResponse.json({ liked: false })
     }
+
+    await prisma.like.create({
+      data: {
+        artworkId: params.id,
+        userId: user.id
+      }
+    })
+
+    return NextResponse.json({ liked: true })
+
   } catch (error) {
-    console.error('Failed to toggle like:', error)
-    return NextResponse.json({ 
-      success: false, 
-      error: 'Failed to toggle like'
-    }, { status: 500 })
+    console.error('Error handling like:', error)
+    return NextResponse.json({ error: 'Failed to process like' }, { status: 500 })
   }
 } 

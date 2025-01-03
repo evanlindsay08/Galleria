@@ -32,6 +32,8 @@ model Like {
   userId    String
   artwork   Artwork  @relation(fields: [artworkId], references: [id])
   user      User     @relation(fields: [userId], references: [id])
+
+  @@unique([artworkId, userId])
 }
 
 model Social {
