@@ -24,12 +24,12 @@ export default function CreateArtCard() {
       </div>
 
       <div className="mt-6 space-y-3">
-        <button className="w-full social-button justify-center">
+        <Link href="/create" className="w-full social-button justify-center">
           Create
-        </button>
-        <button className="w-full social-button justify-center">
+        </Link>
+        <Link href="/gallery/public" className="w-full social-button justify-center">
           Browse Creations
-        </button>
+        </Link>
       </div>
     </div>
   )

@@ -1,23 +1,11 @@
 'use client'
 
 import Header from './components/Header'
-import { useWallet } from '@solana/wallet-adapter-react'
+import CreateArtCard from './components/CreateArtCard'
 import { toast } from 'react-hot-toast'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
 
-export default function HomePage() {
-  const { publicKey } = useWallet()
-  const router = useRouter()
-
-  const handleCreate = () => {
-    if (!publicKey) {
-      toast.error('Please connect your wallet first')
-      return
-    }
-    router.push('/create')
-  }
-
+export default function Home() {
   const handleCopyCA = () => {
     navigator.clipboard.writeText('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
     toast.success('Contract address copied to clipboard!')
@@ -37,22 +25,7 @@ export default function HomePage() {
               Exploring the future of artificial creativity.
             </p>
             
-            <div className="flex gap-4">
-              <button 
-                onClick={handleCreate}
-                className="social-button"
-              >
-                Create
-              </button>
-              <button 
-                onClick={() => router.push('/gallery/public')}
-                className="social-button"
-              >
-                Browse Creations
-              </button>
-            </div>
-
-            <div className="flex gap-3 mt-8">
+            <div className="flex gap-3">
               <a 
                 href="https://x.com/AI_Galleria" 
                 target="_blank" 
@@ -81,6 +54,8 @@ export default function HomePage() {
               </a>
             </div>
           </div>
+
+          <CreateArtCard />
         </div>
 
         {/* Contract Info Box */}
