@@ -6,7 +6,6 @@ export async function GET(
   { params }: { params: { address: string } }
 ) {
   try {
-    // Get the viewer's wallet address from the query params
     const { searchParams } = new URL(request.url)
     const viewerAddress = searchParams.get('viewer')
 
@@ -25,7 +24,7 @@ export async function GET(
             walletAddress: true
           }
         },
-        socialLinks: true,
+        socials: true,
         likes: viewerAddress ? {
           where: {
             user: {
@@ -36,23 +35,17 @@ export async function GET(
       }
     })
 
-    console.log('Found artworks with social links:', 
-      artworks.map(a => ({ id: a.id, socialLinks: a.socialLinks }))
-    )
-
-    // Transform the data to include isLikedByUser
-    const transformedArtworks = artworks.map(artwork => ({
-      ...artwork,
-      isLikedByUser: artwork.likes?.length > 0,
-      likes: undefined // Remove the likes array from the response
-    }))
-
-    return NextResponse.json({ 
-      success: true, 
-      artworks: transformedArtworks
+    return NextResponse.json({
+      success: true,
+      artworks: artworks.map(artwork => ({
+        ...artwork,
+        isLikedByUser: artwork.likes?.length > 0,
+        likes: undefined
+      }))
     })
+
   } catch (error) {
-    console.error('Failed to fetch artworks:', error)
+    console.error('Failed to fetch user artworks:', error)
     return NextResponse.json({ 
       success: false, 
       error: 'Failed to fetch artworks' 
