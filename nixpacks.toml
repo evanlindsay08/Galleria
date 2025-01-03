@@ -1,5 +1,5 @@
 [phases.setup]
-nixPkgs = ['nodejs', 'npm', 'openssl']
+nixPkgs = ['nodejs-18_x', 'npm', 'openssl']
 aptPkgs = ['ca-certificates']
 
 [phases.install]
@@ -9,4 +9,8 @@ cmds = ['npm install --legacy-peer-deps']
 cmds = ['npm run build']
 
 [start]
-cmd = 'npm run start' 
+cmd = 'npm run start'
+
+[variables]
+NODE_ENV = 'production'
+NODE_VERSION = '18' 
