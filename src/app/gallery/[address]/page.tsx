@@ -1,6 +1,5 @@
 'use client'
 
-import { use } from 'react'
 import { useEffect, useState } from 'react'
 import { useWallet } from '@solana/wallet-adapter-react'
 import Link from 'next/link'
@@ -32,7 +31,7 @@ interface Artwork {
 }
 
 export default function UserGalleryPage({ params }: { params: { address: string } }) {
-  const address = use(params).address
+  const address = params.address
   const { publicKey } = useWallet()
   const [artworks, setArtworks] = useState<Artwork[]>([])
   const [loading, setLoading] = useState(true)
