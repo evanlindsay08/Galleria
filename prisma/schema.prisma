@@ -21,6 +21,7 @@ model Artwork {
   imageUrl    String
   createdAt   DateTime  @default(now())
   userId      String
+  isPublic    Boolean   @default(true)
   user        User      @relation(fields: [userId], references: [id])
   likes       Like[]
   socials     Social[]

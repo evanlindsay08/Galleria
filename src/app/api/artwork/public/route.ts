@@ -3,11 +3,8 @@ import { prisma } from '@/lib/prisma'
 
 export async function GET(request: Request) {
   try {
-    // Get the viewer's wallet address from the query params
     const { searchParams } = new URL(request.url)
-    const viewerAddress = searchParams.get('viewer')
-
-    console.log('Fetching public artworks for viewer:', viewerAddress)
+    const walletAddress = searchParams.get('wallet')
 
     const artworks = await prisma.artwork.findMany({
       where: {
@@ -17,50 +14,30 @@ export async function GET(request: Request) {
         createdAt: 'desc'
       },
       include: {
-        user: {
-          select: {
-            walletAddress: true
-          }
-        },
-        socialLinks: true,
-        likes: viewerAddress ? {
+        user: true,
+        likes: walletAddress ? {
           where: {
             user: {
-              walletAddress: viewerAddress
+              walletAddress
             }
           }
         } : false
       }
     })
 
-    console.log('Found artworks:', artworks.length)
-
-    // Transform the data to include isLikedByUser
-    const transformedArtworks = artworks.map(artwork => ({
-      ...artwork,
-      isLikedByUser: artwork.likes?.length > 0,
-      likes: undefined
-    }))
-
-    return NextResponse.json({ 
-      success: true, 
-      artworks: transformedArtworks
+    return NextResponse.json({
+      success: true,
+      artworks: artworks.map(artwork => ({
+        ...artwork,
+        isLikedByUser: artwork.likes?.length > 0
+      }))
     })
-  } catch (error) {
-    console.error('Failed to fetch public artworks:', error)
-    
-    // Log detailed error information
-    if (error instanceof Error) {
-      console.error('Error details:', {
-        message: error.message,
-        stack: error.stack,
-        name: error.name
-      })
-    }
 
+  } catch (error) {
+    console.error('Failed to fetch artworks:', error)
     return NextResponse.json({ 
       success: false, 
-      error: error instanceof Error ? error.message : 'Failed to fetch artworks'
+      error: 'Failed to fetch artworks' 
     }, { status: 500 })
   }
 } 
