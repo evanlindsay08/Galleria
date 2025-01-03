@@ -58,12 +58,10 @@ export default function UserGalleryPage({ params }: { params: { address: string 
       console.log('Fetched artworks:', data)
       if (data.success) {
         setArtworks(data.artworks)
-        const initialLikedArtworks = new Set(
-          data.artworks
-            .filter((art: Artwork) => art.isLikedByUser)
-            .map((art: Artwork) => art.id)
-        )
-        setLikedArtworks(initialLikedArtworks)
+        const likedIds = data.artworks
+          .filter((art: Artwork) => art.isLikedByUser)
+          .map((art: Artwork) => art.id)
+        setLikedArtworks(new Set<string>(likedIds))
       }
     } catch (error) {
       console.error('Failed to fetch artworks:', error)
