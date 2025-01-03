@@ -41,5 +41,8 @@
   "resolutions": {
     "@solana/web3.js": "1.90.0",
     "usb": "^2.8.0"
+  },
+  "overrides": {
+    "usb": "^2.8.0"
   }
 }
