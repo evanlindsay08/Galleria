@@ -60,8 +60,8 @@ export default function UserGalleryPage({ params }: { params: { address: string 
         setArtworks(data.artworks)
         const initialLikedArtworks = new Set(
           data.artworks
-            .filter(art => art.isLikedByUser)
-            .map(art => art.id)
+            .filter((art: Artwork) => art.isLikedByUser)
+            .map((art: Artwork) => art.id)
         )
         setLikedArtworks(initialLikedArtworks)
       }
