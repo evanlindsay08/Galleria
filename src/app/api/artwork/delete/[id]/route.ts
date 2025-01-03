@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { PrismaClient } from '@prisma/client'
 
 export async function DELETE(
   request: Request,
@@ -23,7 +24,7 @@ export async function DELETE(
     }
 
     // Delete all related records in a transaction
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx: PrismaClient) => {
       // Delete likes
       await tx.like.deleteMany({
         where: { artworkId }
