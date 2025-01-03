@@ -24,7 +24,7 @@ export async function DELETE(
     }
 
     // Delete all related records in a transaction
-    await prisma.$transaction(async (tx: PrismaClient) => {
+    await prisma.$transaction(async (tx: Parameters<PrismaClient['$transaction']>[0]) => {
       // Delete likes
       await tx.like.deleteMany({
         where: { artworkId }

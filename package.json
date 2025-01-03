@@ -35,11 +35,11 @@
     "postcss": "^8",
     "prisma": "^5.10.2",
     "tailwindcss": "^3.3.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "pino-pretty": "^10.3.1"
   },
-  "overrides": {
-    "@solana/web3.js": {
-      "usb": "^2.8.0"
-    }
+  "resolutions": {
+    "@solana/web3.js": "1.90.0",
+    "usb": "^2.8.0"
   }
 }
