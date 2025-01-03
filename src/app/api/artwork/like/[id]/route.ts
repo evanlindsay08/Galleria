@@ -8,13 +8,12 @@ export async function POST(
   try {
     const { walletAddress } = await request.json()
 
-    const user = await prisma.user.findUnique({
-      where: { walletAddress }
+    // Find or create user
+    const user = await prisma.user.upsert({
+      where: { walletAddress },
+      create: { walletAddress },
+      update: {}
     })
-
-    if (!user) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 })
-    }
 
     const existingLike = await prisma.like.findUnique({
       where: {
@@ -29,7 +28,7 @@ export async function POST(
       await prisma.like.delete({
         where: { id: existingLike.id }
       })
-      return NextResponse.json({ liked: false })
+      return NextResponse.json({ success: true, liked: false })
     }
 
     await prisma.like.create({
@@ -39,7 +38,7 @@ export async function POST(
       }
     })
 
-    return NextResponse.json({ liked: true })
+    return NextResponse.json({ success: true, liked: true })
 
   } catch (error) {
     console.error('Error handling like:', error)

@@ -15,6 +15,7 @@ export async function GET(request: Request) {
       },
       include: {
         user: true,
+        socials: true,
         likes: walletAddress ? {
           where: {
             user: {
@@ -29,7 +30,11 @@ export async function GET(request: Request) {
       success: true,
       artworks: artworks.map(artwork => ({
         ...artwork,
-        isLikedByUser: artwork.likes?.length > 0
+        isLikedByUser: artwork.likes?.length > 0,
+        socialLinks: artwork.socials.reduce((acc, social) => ({
+          ...acc,
+          [social.platform]: social.url
+        }), {})
       }))
     })
 

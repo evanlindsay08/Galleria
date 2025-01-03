@@ -39,7 +39,7 @@ model Like {
 
 model Social {
   id        String   @id @default(cuid())
-  platform  String
+  platform  String   // twitter, telegram, website, pumpFun
   url       String
   artworkId String
   artwork   Artwork  @relation(fields: [artworkId], references: [id])
