@@ -14,18 +14,11 @@ interface Artwork {
   prompt: string
   imageUrl: string
   createdAt: string
-  shares: number
-  likeCount: number
-  isLikedByUser?: boolean
   user: {
     walletAddress: string
   }
-  socialLinks?: {
-    twitter?: string
-    telegram?: string
-    website?: string
-    pumpFun?: string
-  } | null
+  likeCount: number
+  isLikedByUser?: boolean
 }
 
 export default function PublicGalleryPage() {
@@ -47,7 +40,7 @@ export default function PublicGalleryPage() {
       
       const url = new URL('/api/artwork/public', window.location.origin)
       if (publicKey) {
-        url.searchParams.set('viewer', publicKey.toBase58())
+        url.searchParams.set('wallet', publicKey.toBase58())
       }
 
       const response = await fetch(url)
@@ -59,14 +52,11 @@ export default function PublicGalleryPage() {
       console.log('Public artworks response:', data)
       
       if (data.success) {
-        setArtworks(data.artworks || [])
-        // Initialize liked artworks from the response
-        const initialLikedArtworks = new Set(
-          data.artworks
-            .filter(art => art.isLikedByUser)
-            .map(art => art.id)
-        )
-        setLikedArtworks(initialLikedArtworks)
+        setArtworks(data.artworks)
+        const likedIds = data.artworks
+          .filter((art: Artwork) => art.isLikedByUser)
+          .map((art: Artwork) => art.id)
+        setLikedArtworks(new Set<string>(likedIds))
       } else {
         throw new Error(data.error || 'Failed to fetch artworks')
       }
