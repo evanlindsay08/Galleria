@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id
+  walletAddress String    @unique
+  createdAt     DateTime  @default(now())
+  artworks      Artwork[]
+  socials       Social[]
+  likes         Like[]
+}
+
+model Artwork {
+  id          String    @id @default(cuid())
+  prompt      String
+  imageUrl    String
+  createdAt   DateTime  @default(now())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  isPublic    Boolean   @default(false)
+  likes       Like[]
+  likeCount   Int       @default(0)
+  shares      Int       @default(0)
+  tokenId     String?
+  socialLinks Social?
+}
+
+model Social {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id])
+  artworkId String   @unique
+  artwork   Artwork  @relation(fields: [artworkId], references: [id])
+  twitter   String?
+  telegram  String?
+  website   String?
+  pumpFun   String?
+}
+
+model Like {
+  id        String   @id @default(cuid())
+  artworkId String
+  userId    String
+  artwork   Artwork  @relation(fields: [artworkId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@unique([artworkId, userId])
+} 

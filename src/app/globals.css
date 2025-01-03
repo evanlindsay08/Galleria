@@ -1,18 +1,102 @@
+@import '@solana/wallet-adapter-react-ui/styles.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 255, 255, 255;
-  --background-end-rgb: 255, 255, 255;
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-    to bottom right,
-    transparent,
-    rgb(var(--background-end-rgb))
-  );
+  color: rgb(0, 0, 0);
+  background: linear-gradient(150deg, #f5f5ff 0%, #f0e8ff 35%, #e8f2ff 100%);
+  min-height: 100vh;
+  position: relative;
+  font-feature-settings: "ss01", "ss02", "cv01", "cv02";
+}
+
+/* Grid overlay effect */
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Add this to ensure content appears above grid */
+main {
+  position: relative;
+  z-index: 1;
+}
+
+@layer components {
+  .nav-link {
+    @apply text-[16px] font-bold tracking-wide text-black transition-colors;
+  }
+
+  .nav-link:hover {
+    @apply opacity-70;
+  }
+
+  .button {
+    @apply bg-white px-6 py-2.5 rounded-full text-[15px] font-medium 
+           border-2 border-black/[0.15] flex items-center gap-2.5
+           shadow-[0_2px_4px_rgba(0,0,0,0.05)]
+           transition-all hover:shadow-[0_4px_8px_rgba(0,0,0,0.1)];
+  }
+
+  .button:hover {
+    @apply transform -translate-y-0.5;
+  }
+
+  .live-demo-card {
+    @apply bg-white rounded-[24px] p-8 shadow-lg border border-black/5;
+  }
+
+  .social-button {
+    @apply bg-white px-5 py-2.5 rounded-lg text-[15px] 
+           border-[3px] border-black flex items-center gap-2.5
+           shadow-[4px_4px_0_0_rgba(0,0,0,1)]
+           transition-all hover:translate-x-[-2px] hover:translate-y-[-2px]
+           hover:shadow-[6px_6px_0_0_rgba(0,0,0,1)];
+  }
+
+  .social-button:active {
+    @apply translate-x-[2px] translate-y-[2px] shadow-[2px_2px_0_0_rgba(0,0,0,1)];
+  }
+
+  .wallet-button-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  .wallet-adapter-button {
+    @apply bg-[#7E3AF2] text-white px-5 py-2.5 rounded-lg text-[15px] 
+           border-[3px] border-black flex items-center gap-2.5
+           shadow-[4px_4px_0_0_rgba(0,0,0,1)]
+           transition-all hover:translate-x-[-2px] hover:translate-y-[-2px]
+           hover:shadow-[6px_6px_0_0_rgba(0,0,0,1)] !important;
+    background: #7E3AF2 !important;
+    height: auto !important;
+  }
+
+  .wallet-adapter-button-trigger {
+    background: #7E3AF2 !important;
+  }
+
+  .wallet-adapter-button:hover {
+    @apply bg-[#7E3AF2] !important;
+  }
+
+  .wallet-adapter-button:active {
+    @apply translate-x-[2px] translate-y-[2px] shadow-[2px_2px_0_0_rgba(0,0,0,1)] !important;
+  }
 } 
