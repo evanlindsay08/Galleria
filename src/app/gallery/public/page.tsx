@@ -19,6 +19,12 @@ interface Artwork {
   }
   likeCount: number
   isLikedByUser?: boolean
+  socialLinks?: {
+    twitter?: string
+    telegram?: string
+    website?: string
+    pumpFun?: string
+  } | null
 }
 
 export default function PublicGalleryPage() {
@@ -181,7 +187,7 @@ export default function PublicGalleryPage() {
                     </div>
                   </div>
 
-                  <SocialLinks links={artwork.socialLinks} />
+                  {artwork.socialLinks && <SocialLinks links={artwork.socialLinks} />}
                 </div>
               </div>
             ))}
