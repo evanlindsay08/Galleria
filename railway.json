@@ -3,7 +3,7 @@
   "build": {
     "builder": "NIXPACKS",
     "nixpacksVersion": "1.29.1",
-    "buildCommand": "npm install && prisma generate && next build"
+    "buildCommand": "npm ci && prisma generate && next build"
   },
   "deploy": {
     "startCommand": "npm start",
@@ -12,6 +12,11 @@
     "restartPolicyType": "ON_FAILURE"
   },
   "variables": {
-    "NODE_VERSION": "20.x"
+    "NODE_VERSION": "20.x",
+    "NPM_CONFIG_PRODUCTION": "false",
+    "CI": "true"
+  },
+  "nixpacks": {
+    "pkgs": ["python3", "gcc", "g++", "make", "nodejs", "openssl", "pkg-config"]
   }
 } 
