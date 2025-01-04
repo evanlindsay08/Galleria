@@ -14,13 +14,13 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <Image 
-            src="/Galleria.png" 
-            alt="Galleria Logo" 
+            src="/ArtspaceLogo.png" 
+            alt="Artspace Logo" 
             width={24} 
             height={24}
             className="w-6 h-6"
           />
-          <span className="font-bold text-xl">Galleria</span>
+          <span className="font-bold text-xl">Artspace</span>
         </Link>
 
         <nav className="flex items-center gap-8">

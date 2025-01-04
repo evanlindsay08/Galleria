@@ -15,7 +15,7 @@ export default function CreateArtCard() {
 
       <div className="bg-gray-50 rounded-xl p-6 border-2 border-black/10">
         <p className="text-gray-600 mb-4">
-          Welcome to Galleria, where AI meets artistry. Each artwork is uniquely 
+          Welcome to Artspace, where AI meets artistry. Each artwork is uniquely 
           yours and can be showcased in your personal gallery.
         </p>
         <p className="text-sm text-gray-500">

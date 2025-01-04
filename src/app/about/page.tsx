@@ -5,14 +5,14 @@ export default function AboutPage() {
     <main className="min-h-screen px-12 py-6">
       <div className="max-w-4xl mx-auto bg-white rounded-[32px] p-8 border-[3px] border-black 
                     shadow-[12px_12px_0_0_rgba(0,0,0,1)]">
-        <h1 className="text-4xl font-bold mb-12">About Galleria</h1>
+        <h1 className="text-4xl font-bold mb-12">About Artspace</h1>
 
         <div className="space-y-12">
           {/* Introduction */}
           <section>
-            <h2 className="text-2xl font-bold mb-4">What is Galleria?</h2>
+            <h2 className="text-2xl font-bold mb-4">What is Artspace?</h2>
             <p className="text-gray-600 leading-relaxed">
-              Galleria is a place where anyone can create amazing artwork using AI. 
+              Artspace is a place where anyone can create amazing artwork using AI. 
               Whether you're an artist or just someone who loves being creative, 
               our platform gives you the tools to turn your ideas into beautiful images. 
               Best of all, everything you create is yours to keep and share.
@@ -76,14 +76,14 @@ export default function AboutPage() {
                   <p className="text-gray-600">
                     We use Solana because it's fast and cheap to use. Your wallet is your 
                     key to the platform - use it to save art, like others' work, and soon, 
-                    to unlock special features with $GALLERIA tokens.
+                    to unlock special features with $SPACE tokens.
                   </p>
                 </div>
 
                 <div>
                   <h3 className="text-lg font-bold mb-2">AI Agents (Coming Soon)</h3>
                   <p className="text-gray-600">
-                    $GALLERIA token holders will unlock powerful AI features:
+                    $SPACE token holders will unlock powerful AI features:
                   </p>
                   <ul className="mt-2 space-y-2 text-gray-600 list-disc pl-6">
                     <li>Personal AI chatbots that learn your style</li>
@@ -93,7 +93,7 @@ export default function AboutPage() {
                     <li>Train AI on your own style</li>
                   </ul>
                   <p className="mt-3 text-sm text-gray-500">
-                    Note: These advanced features will be exclusive to $GALLERIA holders
+                    Note: These advanced features will be exclusive to $SPACE holders
                   </p>
                 </div>
               </div>
@@ -106,7 +106,7 @@ export default function AboutPage() {
             <div className="bg-white rounded-[24px] p-6 border-[3px] border-black 
                           shadow-[8px_8px_0_0_rgba(0,0,0,1)]">
               <p className="text-gray-600 mb-4">
-                We're launching AI agents for $GALLERIA token holders that will unlock:
+                We're launching AI agents for $SPACE token holders that will unlock:
               </p>
               <ul className="list-disc pl-6 space-y-3 text-gray-600">
                 <li>
@@ -131,7 +131,7 @@ export default function AboutPage() {
                 </li>
               </ul>
               <p className="mt-4 text-sm text-gray-500">
-                These features will be exclusive to $GALLERIA token holders - stay tuned 
+                These features will be exclusive to $SPACE token holders - stay tuned 
                 for our token launch!
               </p>
             </div>
@@ -146,7 +146,7 @@ export default function AboutPage() {
               with just a few clicks. Start by making art, add social connections, and soon, 
               deploy your own AI agents that can interact with your community. Whether you're 
               an artist looking to build a following or a creator wanting to launch the next 
-              big AI project, Galleria gives you all the tools you need in one place. Our 
+              big AI project, Artspace gives you all the tools you need in one place. Our 
               mission is to make launching AI projects as simple as creating art - no coding 
               required, just your creativity and ideas.
             </p>

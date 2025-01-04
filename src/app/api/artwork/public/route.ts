@@ -5,6 +5,7 @@ export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
     const walletAddress = searchParams.get('wallet')
+    const limit = parseInt(searchParams.get('limit') || '0')
 
     // First get all artworks with their basic info
     const artworks = await prisma.artwork.findMany({
@@ -14,6 +15,7 @@ export async function GET(request: Request) {
       orderBy: {
         createdAt: 'desc'
       },
+      take: limit || undefined,
       include: {
         user: true,
         socials: true,

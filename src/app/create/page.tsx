@@ -83,13 +83,13 @@ export default function CreatePage() {
   return (
     <main className="min-h-screen px-12 py-6">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6">Create AI Art</h1>
+        <h1 className="text-3xl font-bold mb-6">Create Art</h1>
 
         <div className="bg-white rounded-[24px] p-6 border-[3px] border-black 
                       shadow-[8px_8px_0_0_rgba(0,0,0,1)] transition-all relative z-10">
           {!publicKey ? (
             <div className="text-center py-8">
-              <p className="text-gray-600 mb-4">Connect your wallet to start creating</p>
+              <p className="text-gray-600 mb-4">Connect your wallet to start creating with Artspace</p>
               <WalletButton />
             </div>
           ) : (
