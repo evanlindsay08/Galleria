@@ -27,6 +27,12 @@ interface Artwork {
   } | null
 }
 
+interface Filters {
+  sortBy: 'newest' | 'oldest' | 'mostLiked'
+  hasSocialLinks: boolean | 'all'
+  timeFrame: 'all' | 'day' | 'week' | 'month'
+}
+
 export default function PublicGalleryPage() {
   const { publicKey } = useWallet()
   const router = useRouter()
@@ -34,6 +40,11 @@ export default function PublicGalleryPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [likedArtworks, setLikedArtworks] = useState<Set<string>>(new Set())
+  const [filters, setFilters] = useState<Filters>({
+    sortBy: 'newest',
+    hasSocialLinks: 'all',
+    timeFrame: 'all'
+  })
 
   useEffect(() => {
     fetchPublicArtworks()
@@ -124,10 +135,42 @@ export default function PublicGalleryPage() {
     router.push(navigateToUserGallery(publicKey))
   }
 
+  const filteredArtworks = artworks
+    .filter(artwork => {
+      if (filters.hasSocialLinks === 'all') return true
+      return filters.hasSocialLinks === Boolean(artwork.socialLinks && Object.keys(artwork.socialLinks).length > 0)
+    })
+    .filter(artwork => {
+      if (filters.timeFrame === 'all') return true
+      const date = new Date(artwork.createdAt)
+      const now = new Date()
+      const diff = now.getTime() - date.getTime()
+      const days = diff / (1000 * 60 * 60 * 24)
+      
+      switch (filters.timeFrame) {
+        case 'day': return days <= 1
+        case 'week': return days <= 7
+        case 'month': return days <= 30
+        default: return true
+      }
+    })
+    .sort((a, b) => {
+      switch (filters.sortBy) {
+        case 'newest':
+          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        case 'oldest':
+          return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+        case 'mostLiked':
+          return (b.likeCount || 0) - (a.likeCount || 0)
+        default:
+          return 0
+      }
+    })
+
   return (
-    <div className="min-h-screen p-12">
+    <div className="min-h-screen p-6">
       <div className="max-w-6xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex justify-between items-center mb-4">
           <h1 className="text-3xl font-bold">Public Gallery</h1>
           <button 
             onClick={handleViewMyGallery}
@@ -137,13 +180,67 @@ export default function PublicGalleryPage() {
           </button>
         </div>
 
+        <div className="mb-4 bg-white rounded-[24px] p-4 border-[3px] border-black 
+                      shadow-[8px_8px_0_0_rgba(0,0,0,1)]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div>
+              <label className="block text-sm font-medium mb-2">Sort By</label>
+              <select 
+                className="w-full p-2 rounded-lg border-2 border-black/10"
+                value={filters.sortBy}
+                onChange={(e) => setFilters(prev => ({ 
+                  ...prev, 
+                  sortBy: e.target.value as Filters['sortBy']
+                }))}
+              >
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+                <option value="mostLiked">Most Liked</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-2">Social Links</label>
+              <select 
+                className="w-full p-2 rounded-lg border-2 border-black/10"
+                value={filters.hasSocialLinks.toString()}
+                onChange={(e) => setFilters(prev => ({ 
+                  ...prev, 
+                  hasSocialLinks: e.target.value === 'all' ? 'all' : e.target.value === 'true'
+                }))}
+              >
+                <option value="all">All</option>
+                <option value="true">Has Social Links</option>
+                <option value="false">No Social Links</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-2">Time Frame</label>
+              <select 
+                className="w-full p-2 rounded-lg border-2 border-black/10"
+                value={filters.timeFrame}
+                onChange={(e) => setFilters(prev => ({ 
+                  ...prev, 
+                  timeFrame: e.target.value as Filters['timeFrame']
+                }))}
+              >
+                <option value="all">All Time</option>
+                <option value="day">Last 24 Hours</option>
+                <option value="week">Last Week</option>
+                <option value="month">Last Month</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
         {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {[...Array(6)].map((_, i) => (
               <LoadingArtwork key={i} />
             ))}
           </div>
-        ) : artworks.length === 0 ? (
+        ) : filteredArtworks.length === 0 ? (
           <div className="text-center py-12">
             <p className="text-gray-600 mb-4">No public artworks yet</p>
             <Link href="/create" className="social-button inline-flex justify-center">
@@ -151,11 +248,11 @@ export default function PublicGalleryPage() {
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {artworks.map((artwork) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filteredArtworks.map((artwork) => (
               <div 
                 key={artwork.id}
-                className="bg-white rounded-[24px] p-6 border-[3px] border-black 
+                className="bg-white rounded-[24px] p-4 border-[3px] border-black 
                           shadow-[8px_8px_0_0_rgba(0,0,0,1)] transition-all hover:translate-y-[-2px]"
               >
                 <img 
@@ -182,7 +279,8 @@ export default function PublicGalleryPage() {
                           likedArtworks.has(artwork.id) ? 'text-red-500' : ''
                         }`}
                       >
-                        {likedArtworks.has(artwork.id) ? '❤️' : '🤍'} {artwork.likeCount}
+                        {likedArtworks.has(artwork.id) ? '❤️' : '🤍'} 
+                        <span className="font-medium">{artwork.likeCount || 0}</span>
                       </button>
                     </div>
                   </div>
