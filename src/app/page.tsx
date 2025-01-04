@@ -7,7 +7,7 @@ import Image from 'next/image'
 
 export default function Home() {
   const handleCopyCA = () => {
-    navigator.clipboard.writeText('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+    navigator.clipboard.writeText('DnU9k1owD5mu3vi3syLVw1zdGjfmZwy1UXhJqdzcpump')
     toast.success('Contract address copied to clipboard!')
   }
 
