@@ -28,7 +28,17 @@ export async function POST(
       await prisma.like.delete({
         where: { id: existingLike.id }
       })
-      return NextResponse.json({ success: true, liked: false })
+
+      // Get updated like count
+      const likeCount = await prisma.like.count({
+        where: { artworkId: params.id }
+      })
+
+      return NextResponse.json({ 
+        success: true, 
+        liked: false,
+        likeCount 
+      })
     }
 
     await prisma.like.create({
@@ -38,7 +48,16 @@ export async function POST(
       }
     })
 
-    return NextResponse.json({ success: true, liked: true })
+    // Get updated like count
+    const likeCount = await prisma.like.count({
+      where: { artworkId: params.id }
+    })
+
+    return NextResponse.json({ 
+      success: true, 
+      liked: true,
+      likeCount 
+    })
 
   } catch (error) {
     console.error('Error handling like:', error)

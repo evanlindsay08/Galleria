@@ -121,8 +121,11 @@ export default function PublicGalleryPage() {
           setLikedArtworks(newLikedArtworks)
           toast.success('Like removed!')
         }
+      } else {
+        throw new Error(data.error || 'Failed to update like')
       }
     } catch (error) {
+      console.error('Like error:', error)
       toast.error('Failed to toggle like')
     }
   }
