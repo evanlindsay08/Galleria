@@ -95,7 +95,7 @@ export default function Home() {
 
           {/* Social Links */}
           <div className="flex items-center justify-center gap-4">
-            <a href="https://x.com/AI_Galleria" 
+            <a href="https://x.com/ArtspaceAI" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="social-button"
