@@ -14,13 +14,13 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <Image 
-            src="/ArtspaceLogo.png" 
-            alt="Artspace Logo" 
-            width={24} 
-            height={24}
-            className="w-6 h-6"
+            src="/solverselogo.png" 
+            alt="SolSpace AI Logo" 
+            width={32} 
+            height={32}
+            className="w-8 h-8"
           />
-          <span className="font-bold text-xl">Artspace</span>
+          <span className="font-bold text-xl">SolSpace AI</span>
         </Link>
 
         <nav className="flex items-center gap-8">

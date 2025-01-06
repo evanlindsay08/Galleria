@@ -5,17 +5,17 @@ import { Toaster } from 'react-hot-toast'
 import Header from './components/Header'
 
 export const metadata: Metadata = {
-  title: 'Artspace',
+  title: 'SolSpace AI',
   description: 'Exploring the intersection of AI and art',
   icons: {
     icon: [
       {
-        url: '/Artspacefavicon.png',
-        href: '/Artspacefavicon.png',
+        url: '/solversefavicon.png',
+        href: '/solversefavicon.png',
       }
     ],
-    shortcut: '/Artspacefavicon.png',
-    apple: '/Artspacefavicon.png',
+    shortcut: '/solversefavicon.png',
+    apple: '/solversefavicon.png',
   }
 }
 
@@ -27,9 +27,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" type="image/png" href="/Artspacefavicon.png" />
-        <link rel="apple-touch-icon" href="/Artspacefavicon.png" />
-        <link rel="shortcut icon" type="image/png" href="/Artspacefavicon.png" />
+        <link rel="icon" type="image/png" href="/solversefavicon.png" />
+        <link rel="apple-touch-icon" href="/solversefavicon.png" />
+        <link rel="shortcut icon" type="image/png" href="/solversefavicon.png" />
       </head>
       <body>
         <WalletProvider>

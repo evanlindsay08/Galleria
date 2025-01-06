@@ -20,6 +20,7 @@
     "@solana/wallet-adapter-wallets": "^0.19.25",
     "@solana/web3.js": "^1.90.0",
     "encoding": "^0.1.13",
+    "framer-motion": "^11.15.0",
     "next": "14.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -32,11 +33,11 @@
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
+    "pino-pretty": "^10.3.1",
     "postcss": "^8",
     "prisma": "^5.10.2",
     "tailwindcss": "^3.3.0",
-    "typescript": "^5",
-    "pino-pretty": "^10.3.1"
+    "typescript": "^5"
   },
   "resolutions": {
     "@solana/web3.js": "1.90.0",

@@ -4,7 +4,7 @@ export default function DeployPage() {
   return (
     <main className="min-h-screen px-12 py-6">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6">Deploy Artspace Agent</h1>
+        <h1 className="text-3xl font-bold mb-6">Deploy SolSpace AI Agent</h1>
 
         <div className="bg-white rounded-[24px] p-6 border-[3px] border-black 
                       shadow-[8px_8px_0_0_rgba(0,0,0,1)] transition-all relative overflow-hidden">
@@ -47,7 +47,7 @@ export default function DeployPage() {
           <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center">
             <div className="text-center">
               <h2 className="text-4xl font-bold mb-4">Coming Soon</h2>
-              <p className="text-gray-600">Deploy your own Artspace agent with your artwork</p>
+              <p className="text-gray-600">Deploy your own SolSpace AI agent with your artwork</p>
             </div>
           </div>
         </div>

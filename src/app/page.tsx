@@ -4,6 +4,7 @@ import { toast } from 'react-hot-toast'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 import LoadingArtwork from './components/LoadingArtwork'
 
 interface Artwork {
@@ -65,7 +66,7 @@ export default function Home() {
             <div className="h-4 w-px bg-black/10"></div>
             <div className="flex items-center gap-2">
               <span className="text-gray-600">Ticker:</span>
-              <span className="font-medium">$SPACE</span>
+              <span className="font-medium">$SSAI</span>
             </div>
           </div>
         </div>
@@ -73,9 +74,15 @@ export default function Home() {
 
       {/* Hero Section */}
       <div className="max-w-6xl mx-auto px-6 pt-24 pb-16">
-        <div className="text-center mb-24">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-center mb-24"
+        >
           <h1 className="text-5xl font-bold mb-6">
-            Welcome to Artspace
+            Welcome to SolSpace AI
           </h1>
           <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
             Create, share, and explore AI-generated artwork. Connect your wallet to start your creative journey.
@@ -95,7 +102,7 @@ export default function Home() {
 
           {/* Social Links */}
           <div className="flex items-center justify-center gap-4">
-            <a href="https://x.com/ArtspaceAI" 
+            <a href="https://x.com/SolSpace_AI" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="social-button"
@@ -120,49 +127,69 @@ export default function Home() {
               Pump.fun
             </a>
           </div>
-        </div>
+        </motion.div>
 
         {/* How It Works Section */}
         <div className="mb-24">
-          <h2 className="text-3xl font-bold text-center mb-12">How It Works</h2>
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.8 }}
+            transition={{ duration: 0.6 }}
+            className="text-3xl font-bold text-center mb-12"
+          >
+            How It Works
+          </motion.h2>
+          
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-[24px] p-6 border-[3px] border-black 
-                          shadow-[8px_8px_0_0_rgba(0,0,0,1)]">
-              <h3 className="text-xl font-bold mb-3">1. Create</h3>
-              <p className="text-gray-600">
-                Connect your wallet and use AI to generate unique artwork from your text descriptions.
-                Each creation is uniquely yours.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-[24px] p-6 border-[3px] border-black 
-                          shadow-[8px_8px_0_0_rgba(0,0,0,1)]">
-              <h3 className="text-xl font-bold mb-3">2. Connect</h3>
-              <p className="text-gray-600">
-                Add social links to your artwork and turn them into full projects. Share with 
-                your community across platforms.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-[24px] p-6 border-[3px] border-black 
-                          shadow-[8px_8px_0_0_rgba(0,0,0,1)]">
-              <h3 className="text-xl font-bold mb-3">3. Launch (Coming Soon)</h3>
-              <p className="text-gray-600">
-                Deploy AI agents for your projects with $SPACE tokens. 
-                No coding required.
-              </p>
-            </div>
+            {[
+              {
+                title: "1. Create",
+                description: "Connect your wallet and use AI to generate unique artwork from your text descriptions. Each creation is uniquely yours."
+              },
+              {
+                title: "2. Connect",
+                description: "Add social links to your artwork and turn them into full projects. Share with your community across platforms."
+              },
+              {
+                title: "3. Launch (Coming Soon)",
+                description: "Deploy AI agents for your projects with $SSAI tokens. No coding required."
+              }
+            ].map((step, index) => (
+              <motion.div
+                key={step.title}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.6 }}
+                transition={{ 
+                  duration: 0.8,
+                  ease: "easeOut",
+                  delay: index * 0.1 
+                }}
+                className="bg-white rounded-[24px] p-6 border-[3px] border-black 
+                          shadow-[8px_8px_0_0_rgba(0,0,0,1)]"
+              >
+                <h3 className="text-xl font-bold mb-3">{step.title}</h3>
+                <p className="text-gray-600">{step.description}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
 
         {/* Recent Creations Section */}
         <div>
-          <div className="flex justify-between items-center mb-8">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.6 }}
+            transition={{ duration: 0.6 }}
+            className="flex justify-between items-center mb-8"
+          >
             <h2 className="text-3xl font-bold">Recent Creations</h2>
             <Link href="/gallery/public" className="social-button">
               View All
             </Link>
-          </div>
+          </motion.div>
 
           {loading ? (
             <div className="grid md:grid-cols-3 gap-6">
@@ -172,11 +199,20 @@ export default function Home() {
             </div>
           ) : (
             <div className="grid md:grid-cols-3 gap-6">
-              {recentArtworks.map((artwork) => (
-                <div 
+              {recentArtworks.map((artwork, index) => (
+                <motion.div
                   key={artwork.id}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={{ 
+                    duration: 0.8,
+                    ease: "easeOut",
+                    delay: index * 0.1 
+                  }}
+                  whileHover={{ y: -4 }}
                   className="bg-white rounded-[24px] p-4 border-[3px] border-black 
-                            shadow-[8px_8px_0_0_rgba(0,0,0,1)] transition-all hover:translate-y-[-2px]"
+                            shadow-[8px_8px_0_0_rgba(0,0,0,1)]"
                 >
                   <img 
                     src={artwork.imageUrl} 
@@ -190,7 +226,7 @@ export default function Home() {
                   >
                     by {artwork.user.walletAddress.slice(0, 4)}...{artwork.user.walletAddress.slice(-4)}
                   </Link>
-                </div>
+                </motion.div>
               ))}
             </div>
           )}
