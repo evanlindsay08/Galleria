@@ -40,7 +40,7 @@ export default function Home() {
   }
 
   const handleCopyCA = () => {
-    navigator.clipboard.writeText('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+    navigator.clipboard.writeText('8ShgrHgHWViDJ2vfSJX8dH7KAztT3uzwiqW4BzF6pump')
     toast.success('Contract address copied to clipboard!')
   }
 
@@ -56,7 +56,7 @@ export default function Home() {
                 onClick={handleCopyCA}
                 className="text-black hover:text-gray-600 transition-colors font-mono flex items-center gap-2"
               >
-                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                8ShgrHgHWViDJ2vfSJX8dH7KAztT3uzwiqW4BzF6pump
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
                     d="M8 16h8M8 12h8m-8-4h8m4 0v16a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2h8a2 2 0 012 2z" />
@@ -112,7 +112,7 @@ export default function Home() {
               </svg>
               Twitter
             </a>
-            <a href="https://pump.fun/board" 
+            <a href="https://pump.fun/coin/8ShgrHgHWViDJ2vfSJX8dH7KAztT3uzwiqW4BzF6pump" 
               target="_blank" 
               rel="noopener noreferrer"
               className="social-button"
